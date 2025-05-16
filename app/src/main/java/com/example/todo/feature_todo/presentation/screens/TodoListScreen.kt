@@ -20,7 +20,6 @@ fun TodoListScreen(viewModel: TodoViewModel, navController: NavController) {
     val todoList by viewModel.todoList.collectAsState()
     val error by viewModel.errorMessage.collectAsState()
 
-    // Fetch data when screen is first shown
     LaunchedEffect(Unit) {
         viewModel.fetchTodoItems()
     }
@@ -56,7 +55,9 @@ fun TodoCard(todo: TodoItem, onClick: () -> Unit) {
             .padding(8.dp)
             .clickable { onClick() },
         shape = RoundedCornerShape(10.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.Blue)
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFB9936C))
+
+
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = todo.title, style = MaterialTheme.typography.bodyLarge, color = Color.White)
