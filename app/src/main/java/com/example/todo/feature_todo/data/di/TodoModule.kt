@@ -5,12 +5,17 @@ import androidx.room.Room
 import com.example.todo.feature_todo.data.local.TodoDao
 import com.example.todo.feature_todo.data.local.TodoDatabase
 import com.example.todo.feature_todo.data.remote.TodoApi
+import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+@Module
+@InstallIn(SingletonComponent::class)
 object TodoModule {
 
     @Provides
@@ -24,7 +29,8 @@ object TodoModule {
      return Retrofit.Builder()
          .addConverterFactory(
              GsonConverterFactory.create()
-         ).baseUrl(" https://jsonplaceholder.typicode.com").build()
+         ).baseUrl("https://jsonplaceholder.typicode.com/")
+         .build()
     }
 
     @Provides

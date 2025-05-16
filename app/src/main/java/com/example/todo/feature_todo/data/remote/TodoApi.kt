@@ -5,9 +5,9 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface TodoApi {
-    @GET("todo")
+    @GET("todos")
     suspend fun getAllTodos():List<RemoteTodoItem>
-    @GET("todo/{id}")
+    @GET("todos/{id}")
     suspend fun getSingleTodoById(@Path("id") id: Int):RemoteTodoItem
 
 }

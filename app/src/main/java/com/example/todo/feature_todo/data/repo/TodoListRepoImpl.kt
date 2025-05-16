@@ -30,33 +30,35 @@ class TodoListRepoImpl(
     }
 
     override suspend fun getAllTodosFromRemote() {
-        return withContext(dispatcher) {
+        withContext(dispatcher) {
             try {
                 refreshRoomCache()
-            } catch (e:Exception){
-                when(e){
-                    is UnknownHostException, is ConnectException,is HttpException->{
-                        Log.e("HTTP","Error:No data From the remote")
+            } catch (e: Exception) {
+                when (e) {
+                    is UnknownHostException, is ConnectException, is HttpException -> {
+                        Log.e("HTTP", "Error: No data from the remote")
                         if (isCacheEmpty()) {
                             Log.e("Cache", "Error: No data from local Room cache")
                             throw Exception("Error: Device offline and no data from Room cache")
                         }
                     }
-                else->throw e
-
+                    else -> throw e
                 }
             }
-}}
+        }
+    }
 
     private suspend fun refreshRoomCache() {
         val remoteItems = api.getAllTodos().filterNotNull()
+        Log.d("RemoteFetch", "Fetched ${remoteItems.size} items from API")
         dao.addAllTodoItems(remoteItems.toLocalTodoItemListFromRemote())
     }
-        private fun isCacheEmpty(): Boolean {
-            var empty = true
-            if (dao.getAllTodoItems().isNotEmpty()) empty = false
-            return empty
-        }
+
+
+    private suspend fun isCacheEmpty(): Boolean {
+        return dao.getAllTodoItems().isEmpty()
+    }
+
 
 
 
@@ -64,3 +66,4 @@ class TodoListRepoImpl(
         return dao.getSingleTodoItemById(id)?.toTodoItem()
     }
 }
+
