@@ -1,7 +1,7 @@
 package com.example.todo.feature_todo.data.repo
 
 import android.util.Log
-import coil.network.HttpException
+
 import com.example.todo.feature_todo.data.di.IoDispatcher
 import com.example.todo.feature_todo.data.local.TodoDao
 import com.example.todo.feature_todo.data.mapper.toLocalTodoItemListFromRemote
@@ -12,6 +12,7 @@ import com.example.todo.feature_todo.domain.model.TodoItem
 import com.example.todo.feature_todo.domain.repo.TodoListRepo
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import java.net.ConnectException
 import java.net.UnknownHostException
 
